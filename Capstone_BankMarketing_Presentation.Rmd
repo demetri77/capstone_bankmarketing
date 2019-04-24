@@ -1,0 +1,138 @@
+---
+title: "Bank Marketing Success"
+author: "Demetri Lee"
+date: "April 1, 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(summarytools)
+
+#bankfull <- read_delim(file = "bank-additional.csv", delim = ";", col_types = "iccccccccciiiicdddddc")
+bankfull <- read_delim(file = "bank-additional.csv", delim = ";", col_types = "ifffffffffiiiifdddddf")
+
+colnames(bankfull) <- c("age", "job", "marital", "edu_lvl", "cred_default", "mortgage", "loan",
+                        "contact_typ", "month", "day_of_week", "duration_sec", 
+                        "contact_cnt", "days_passed", "prev_contact_cnt", "prev_outcome",
+                        "emp_var_rate", "cons_price_idx", "cons_conf_idx", "euribor3m", "num_employed",
+                        "subscribed")
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+A Portuguese bank uses telemarketing campaigns to engage their customers. Each 
+customer engagement has been recorded for evaluation. Such data can be used to 
+extract insights for making better campaign decisions.
+
+Marketing campaigns generally do not discriminate how customers are targeted.
+Therefore, some campaigns are irrelevant to some customers and unneccessary  
+resources may be spent on customers that lead to rejection. 
+
+
+## Motivation
+
+The Bank has asked me to work on this classification problem, which has 2 
+goals:
+
+* Predict whether a customer will subscribe to a term deposit.
+* Predict the probability of a successful subscriptions.
+
+
+## Data
+
+Interactions with over 41,000 clients were recorded from May 2008 to Nov 2010.
+
+Each record contains 21 different attributes for evaluation.
+
+The attribute of interest, `subscribed`, will indicate a successful 
+subscription from a client.
+
+
+## Exploratory Data Analysis
+
+At first glance there is an overwhelming amount of clients who choose not to 
+subscribe to a term deposit. This means the data set is imbalanced.
+
+```{r subscribed}
+ggplot(bankfull, aes(x = subscribed, fill = subscribed)) + geom_bar() + 
+  xlab("subscribed") + 
+  ylab("count")
+```
+
+
+## Exploratory Data Analysis
+
+But looking at subscriptions from a previous campaign tells us more than 
+half the subscribers will re-subscribe.
+
+```{r prev_outcome}
+bankfull_prev <- filter(bankfull, prev_outcome != "nonexistent")
+ggplot(bankfull_prev, aes(x=prev_outcome, fill=subscribed)) + 
+  geom_bar(position="fill") + 
+  xlab("previous campaign") + 
+  ylab("ratio")
+```
+
+
+## Contact Type
+
+It was also observed contacting clients via cellular phone yields at least 2 
+times more success than contacting a client through their landline telephone.
+
+```{r contact_typ}
+ggplot(bankfull, aes(x=contact_typ, fill=subscribed)) + 
+  geom_bar(position="fill") + 
+  xlab("method of contact") + 
+  ylab("ratio")
+```
+
+
+## Machine Learning
+
+The data was partitioned into a training, validation, and test set.
+
+1. Two predictive models were created from client responses in the training set.
+
+2. The same two models were used to predict client responses in the validation set.
+
+3. Finally the optimal model from the prior step was used with the test set to 
+  estimate future results. 
+
+## Predictive Modeling
+
+The following two Machine Learning models were used to predict subscriptions:
+
+* Logistic Regression
+
+* Random Forest
+
+It was noted the data set is extremely imbalanced as there is overwhelming 
+amount of clients that do not subscribe. Hence the statistical Kappa value is 
+more helpful than using accuracy to determine which model will give us the 
+best results.
+
+
+## Evaluating Model Performance
+
+The Kappa value for the Random Forest model is higher than the Logistic 
+Regression model so the former will be the model of choice for the test data.
+
+Since there is a high volume of rejection, the accuracy of a prediction for 
+rejection is overwhelmingly high. Yet we are interested in successful 
+subscriptions, which are true positive results.
+
+
+## Recommendations
+
+1. Reach out to subscribers from previous campaign as more than 50% of 
+  subscribers will re-subscribe.
+
+2. Contact clients via their cellular phone as they are more than twice as 
+  likely to subscribe compared to clients contacted via a regular telephone.
+
+3. The Random Forest model is a better predictor for this bank marketing 
+  dataset. However, there aren't any tangible results that can be applied. 
+  For better insight I would recommend using the results from the Logistic 
+  Regression model.

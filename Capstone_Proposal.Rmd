@@ -1,0 +1,57 @@
+---
+title: "Capstone Proposal"
+author: "Demetri Lee"
+date: "April 1, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+## Who is your client?
+
+My client is a Portuguese bank that implements telemarkting campaigns to 
+engage customers for a chance to accept a subscription for a term deposit. 
+
+
+## What is the problem?
+
+I would like to be able to predict which customers in the bank's marketing 
+campaign will subscribe to a new service. Because not all marketing campaigns 
+are relevant to all customers, I would also like to determine which attributes 
+lead to a successful subscription instead of implementing or maintaining 
+ineffective elements of a campaign that lead to a rejection.
+
+
+## What data is being used?
+
+I have a data set from a direct marketing campaign with 45,211 instances and 
+20 various attributes. An additional attribute is the variable of interest, 
+also known as the dependent variable, and indicates whether a customer 
+subscribes to a term deposit.
+
+[Bank Marketing](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+
+
+## Outline Approach
+
+Exploratory Data Analysis
+
+* Bar charts and Histograms
+* Box plots
+* Scatter plots
+
+Machine Learning
+
+* Logistic Regression
+* Random Forest
+
+
+## What are your deliverables?
+
+R Markdown files:
+
+* Data Wrangling
+* Machine Learning
+* Bank Marketing Presentation
