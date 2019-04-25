@@ -22,8 +22,7 @@ derive knowledge for a model that would confirm how to better focus resources
 towards clients with a high chance of agreeing to registering for extra 
 banking services. 
 
-The compressed [data set]
-(https://archive.ics.uci.edu/ml/machine-learning-databases/00222/) can be 
+The [data set](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) can be 
 found at an archive for Marchine Learning.
 
 ### This is the data dictionary provided by the respective retail bank:
