@@ -69,7 +69,8 @@ Develop a model with the training data.
 ```{r logReg, warning=FALSE}
 # develop a model
 set.seed(7)
-glm_model <- train(subscribed ~ . - duration_sec, data=training, method="glm", na.action=na.omit, metric="Kappa")
+glm_model <- train(subscribed ~ . - duration_sec, data=training, method="glm", na.action=na.omit, 
+                   metric="Kappa", trControl=control)
 ```
 
 
@@ -93,13 +94,11 @@ than F1 for uneven results.
 
 ```{r}
 caret::confusionMatrix(glm_predict_full, validation$subscribed, mode="everything", positive="yes") 
-
-
 ```
 
 **Comparing results of Logistic Regression model:**
 
-Kappa = 0.2976 (updated)
+Kappa = 0.2976
 
 
 ## Random Forest with caret package
@@ -109,7 +108,7 @@ Develop a model with training data.
 ```{r rdmForest}
 set.seed(7)
 rf_model <- caret::train(subscribed~.-duration_sec, data=training, method="rf", metric="Kappa", 
-                         trControl=trainControl(method="cv", number=10))
+                         trControl=control)
 ```
 
 

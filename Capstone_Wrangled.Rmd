@@ -79,6 +79,7 @@ failure, nonexistent, success)
 
 21. y: has the client subscribed a term deposit? (binary: yes, no)
 
+
 ### Data Preparation
 
 Let's start by reading in the dataset with values delimited by semi-colons along 
@@ -106,21 +107,6 @@ colnames(bankfull) <- c("age", "job", "marital", "edu_lvl", "cred_default", "mor
 ```
 
 
->bankfull <- rename(bankfull, edu_lvl = "education")
->bankfull <- rename(bankfull, cred_default = "default")
->bankfull <- rename(bankfull, mortgage = "housing")
->bankfull <- rename(bankfull, contact_typ = "contact")
->bankfull <- rename(bankfull, duration_sec = "duration")
->bankfull <- rename(bankfull, contact_cnt = "campaign")
->bankfull <- rename(bankfull, days_passed = "pdays")
->bankfull <- rename(bankfull, prev_contact_cnt = "previous")
->bankfull <- rename(bankfull, prev_outcome = "poutcome")
->bankfull <- rename(bankfull, emp_var_rate = "emp.var.rate")
->bankfull <- rename(bankfull, cons_price_idx = "cons.price.idx")
->bankfull <- rename(bankfull, cons_conf_idx = "cons.conf.idx")
->bankfull <- rename(bankfull, num_employed = "nr.employed")
-
-
 Replace all periods ('.') in values for `job` and `edu_lvl `with 
 underscores ('_') for legibility.
 
@@ -143,6 +129,7 @@ Take a quick check of the dataset with glimpse.
 glimpse(bankfull)
 ```
 
+
 ### Exploring Data with Plots
 
 **Looking at Campaign results**
@@ -155,11 +142,13 @@ ggplot(bankfull, aes(x = subscribed, fill = subscribed)) + geom_bar() +
   labs(title = "Subscription Counts")
 ```
 
+
 The proportion of `no` to `yes` in a table:
 
 ```{r}
 prop.table(table(bankfull$subscribed))
 ```
+
 
 When looking for clients that have subscribed to a previous campaign there are 
 too many `nonexistent` values.
@@ -169,12 +158,14 @@ ggplot(bankfull, aes(prev_outcome, fill=prev_outcome)) + geom_bar() +
   labs(title="Subscription Count from a Previous Campaign")
 ```
 
+
 When comparing clients that subscribed to the previous campaign and the 
 current campaign, the `nonexistent` values become distracting.
 
 ```{r}
 ggplot(bankfull, aes(x=prev_outcome, fill=subscribed)) + geom_bar()
 ```
+
 
 With the `nonexistent` values removed, notably more than half the clients can 
 be seen as having subscribed again.
@@ -214,6 +205,7 @@ ggplot(bankfull, aes(x = job, fill = subscribed)) +
   labs(title = "Subscriptions per Job Type")
 
 ```
+
 
 Further review of clients' financial records (credit in default, mortgage, or 
 personal loan) also do not express any notable subscription trends.
@@ -296,6 +288,7 @@ ggplot(bankfull, aes(x=day_of_week, fill=subscribed)) +
   facet_wrap(vars(month))
 ```
 
+
 The variable `duration` refers to the length of time in seconds spent with the 
 customer at the last point of contact. Important note: this attribute highly 
 affects the output target (e.g., if duration=0 then subscribed="no"). Yet, 
@@ -313,6 +306,7 @@ ggplot(bankfull, aes(x=subscribed, y=duration_sec, fill=subscribed)) +
   geom_boxplot(outlier.shape=16, alpha=.5)
 
 ```
+
 
 There's a slight overlap in the Interquaritle Range of subscribers with the 
 non-subscribers. That is, there's a cut-off from the Q3 for non-subscribers 

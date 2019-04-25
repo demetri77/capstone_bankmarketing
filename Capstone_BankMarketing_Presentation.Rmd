@@ -134,5 +134,5 @@ subscriptions, which are true positive results.
 
 3. The Random Forest model is a better predictor for this bank marketing 
   dataset. However, there aren't any tangible results that can be applied. 
-  For better insight I would recommend using the results from the Logistic 
+  For better explanantory analysis I would recommend using the results from the Logistic 
   Regression model.
