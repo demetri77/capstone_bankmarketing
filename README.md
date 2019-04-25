@@ -23,4 +23,3 @@ More about the data set can be found here, [Bank Marketing](https://archive.ics.
 * Capstone_MachineLearning.Rmd
 * Capstone_BankMarketing_Presentation.Rmd
 
-The data set from the bank can be found at the [Archive for Marchine Learning at UC Irvine](https://archive.ics.uci.edu/ml/machine-learning-databases/00222/)
