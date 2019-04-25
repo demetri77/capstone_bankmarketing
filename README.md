@@ -1,12 +1,12 @@
-# Capston Project for Springboard
+# Capstone Project for Springboard
 
 ## Bank Marketing
 
 **Problem**
 
-There exists a bank that implements a telemarketing campaign to its customers. As a result the bank wants to predict who will successfully subscribe to a term deposit.   
+There exists a bank that implements a telemarketing campaign to its customers. The bank's goal is to predict who will successfully subscribe to a term deposit.   
 
-The classification goal is to predict if a bank customer will subscribe a term deposit.
+This problem is essentially a binary classification question that will investigate the factors that lead to a successful subscription.
 
 
 **Data**
@@ -18,8 +18,8 @@ More about the data set can be found here, [Bank Marketing](https://archive.ics.
 
 **Files**
 
+* Capstone_Proposal.Rmd
 * Capstone_Wrangled.Rmd
 * Capstone_MachineLearning.Rmd
 * Capstone_BankMarketing_Presentation.Rmd
 
-The data set from the bank can be found here: [data set](https://archive.ics.uci.edu/ml/machine-learning-databases/00222/)
