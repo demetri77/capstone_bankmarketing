@@ -49,6 +49,8 @@ Each record contains 21 different attributes for evaluation.
 The attribute of interest, `subscribed`, will indicate a successful 
 subscription from a client.
 
+Data was provided by Sérgio Moro (ISCTE-IUL), Paulo Cortez (Univ. Minho) and 
+Paulo Rita (ISCTE-IUL).
 
 ## Exploratory Data Analysis
 

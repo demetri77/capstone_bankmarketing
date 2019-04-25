@@ -52,6 +52,8 @@ Machine Learning
 
 R Markdown files:
 
-* Data Wrangling
-* Machine Learning
-* Bank Marketing Presentation
+* Capstone_Wrangled.Rmd: data wrangling, exploratory data and statistical 
+    analysis, and milestone report 
+* Capstone_MachineLearning.Rmd: contains machine learning models, analysis, 
+    and recommendations
+* Capstone_BankMarketing_Presentation.Rmd: contains presentation
