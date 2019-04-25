@@ -1,11 +1,16 @@
 ## 2018 Capstone Project - Ideas
 
-**Does the gifted & talented program for NYC 3rd graders lead to better performance during statewide assessment as 8th graders?**
+**Does the gifted & talented program for NYC 3rd graders lead to better 
+performance during statewide assessment as 8th graders?**
 
-Most parents consider it a blessing for their kids to be enrolled in NYC’s gifted and talented program and may register their children for test prep just to pass entrance exams instead of letting their child’s natural intelligence express itself. 
+Most parents consider it a blessing for their kids to be enrolled in NYC’s 
+gifted and talented program and may register their children for test prep just 
+to pass entrance exams instead of letting their child’s natural intelligence 
+express itself. 
 (https://www.nytimes.com/2013/02/18/nyregion/new-york-city-schools-struggle-to-separate-the-gifted-from-the-just-well-prepared.html)
 
-Parents may underestimate how early pressure to succeed may upset a child’s confidence to do better later in life. (https://www.nytimes.com/2018/01/17/books/review/off-the-charts-ann-hulbert.html)  
+Parents may underestimate how early pressure to succeed may upset a child’s 
+confidence to do better later in life. (https://www.nytimes.com/2018/01/17/books/review/off-the-charts-ann-hulbert.html)  
 
 
 **Does a rise in homelessness relate to increased disciplinary actions in schools?**
