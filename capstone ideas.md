@@ -18,8 +18,9 @@ Most homeless students fall behind and face suspension as well as other discipli
 **Which student profile takes on the most debt from higher education?**
 
 Is there a way to minimize student debt? Is college tuition worth the cost?
-The largest pool of American debt is typically mortgages followed by student loans
-Michigan has highest average school debt of $29,450 while Montana has largest percentage of recent graduates with debt (http://www.gobankingrates.com)  
+The largest pool of American debt is typically mortgages followed by student 
+loans Michigan has highest average school debt of $29,450 while Montana has 
+largest percentage of recent graduates with debt (http://www.gobankingrates.com)
 
 
 **Bank Marketing - How to predict whether a client will subscribe?**
