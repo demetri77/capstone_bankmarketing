@@ -25,7 +25,9 @@ largest percentage of recent graduates with debt (http://www.gobankingrates.com)
 
 **Bank Marketing - How to predict whether a client will subscribe?**
 
-The data is related with direct marketing campaigns (phone calls) of a Portuguese banking institution. The classification goal is to predict if the client will subscribe a term deposit (variable y).
+The data is related with direct marketing campaigns (phone calls) of a 
+Portuguese banking institution. The classification goal is to predict if the 
+client will subscribe a term deposit (variable y).
 
 Machine Learning Repository 
 [Bank Marketing Data Set](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
