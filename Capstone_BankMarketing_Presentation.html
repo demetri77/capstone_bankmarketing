@@ -3117,18 +3117,19 @@ if (document.readyState !== "loading" &&
 
 <slide class=""><hgroup><h2>Introduction</h2></hgroup><article  id="introduction">
 
-<p>A Portuguese bank uses telemarketing campaigns to engage their customers. Each customer engagement has been recorded for evaluation. Such data can be used to extract insights for making better campaign decisions.</p>
+<p>A Portuguese bank uses telemarketing campaigns to engage their customers.</p>
 
-<p>Marketing campaigns generally do not discriminate how customers are targeted. Therefore, some campaigns are irrelevant to some customers and unneccessary<br/>resources may be spent on customers that lead to rejection.</p>
+<p>Each customer engagement has been recorded for evaluation.</p>
+
+<p>Such data can be used to extract insights for making better campaign decisions.</p>
 
 </article></slide><slide class=""><hgroup><h2>Motivation</h2></hgroup><article  id="motivation">
 
-<p>The Bank has asked me to work on this classification problem, which has 2 goals:</p>
+<p>The Bank essentially has a binary classification problem, whether a customer suscribes or not.</p>
 
-<ul>
-<li>Predict whether a customer will subscribe to a term deposit.</li>
-<li>Predict the probability of a successful subscriptions.</li>
-</ul>
+<p>Marketing campaigns generally do not discriminate how customers are targeted.</p>
+
+<p>Therefore, some campaigns are irrelevant to some customers and needless resources may be spent on rejections.</p>
 
 </article></slide><slide class=""><hgroup><h2>Data</h2></hgroup><article  id="data">
 
@@ -3137,6 +3138,8 @@ if (document.readyState !== "loading" &&
 <p>Each record contains 21 different attributes for evaluation.</p>
 
 <p>The attribute of interest, <code>subscribed</code>, will indicate a successful subscription from a client.</p>
+
+<p>Data was provided by Sérgio Moro (ISCTE-IUL), Paulo Cortez (Univ. Minho) and Paulo Rita (ISCTE-IUL).</p>
 
 </article></slide><slide class=""><hgroup><h2>Exploratory Data Analysis</h2></hgroup><article  id="exploratory-data-analysis">
 
@@ -3168,7 +3171,7 @@ if (document.readyState !== "loading" &&
 
 </article></slide><slide class=""><hgroup><h2>Predictive Modeling</h2></hgroup><article  id="predictive-modeling">
 
-<p>The following two Machine Learning models were used to predict subscriptions:</p>
+<p>Since this is a binary classification problem, the following two Machine Learning models were used to predict subscriptions:</p>
 
 <ul>
 <li><p>Logistic Regression</p></li>
@@ -3188,7 +3191,7 @@ if (document.readyState !== "loading" &&
 <ol>
 <li><p>Reach out to subscribers from previous campaign as more than 50% of subscribers will re-subscribe.</p></li>
 <li><p>Contact clients via their cellular phone as they are more than twice as likely to subscribe compared to clients contacted via a regular telephone.</p></li>
-<li><p>The Random Forest model is a better predictor for this bank marketing dataset. However, there aren’t any tangible results that can be applied. For better insight I would recommend using the results from the Logistic Regression model.</p></li>
+<li><p>The Random Forest model is a better predictor for this bank marketing dataset. However, there aren’t any tangible results that can be applied. For better explanantory analysis I would recommend using the results from the Logistic Regression model.</p></li>
 </ol></article></slide>
 
 

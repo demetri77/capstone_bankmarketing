@@ -61,9 +61,21 @@ control <- trainControl(method = "cv", number = 10, classProbs = TRUE, verboseIt
 ```
 
 
+## Predictive Modeling Options
+
+Because this problem deals with binary classification, I will be using these 2 
+model types:
+
+* Logistic Regression
+    * regression model where the dependent variable is categorical 
+* Random Forest
+    * a random forest of decision trees
+    
+
 ## Logistic Regression with caret package
 
 Develop a model with the training data. 
+Nota bene: because the data set is skewed, Kappa is 
 
 ```{r logReg, warning=FALSE}
 # develop a model
@@ -153,3 +165,11 @@ and 24% acceptance.
 
 While not impressive, having a 54% probability rate for subscriptions is 
 better than the baseline of 11-24%.
+
+
+**Recommendation**
+
+The Random Forest model is a better predictor for this bank marketing dataset. 
+However, there aren't any tangible results that can be applied. For better 
+explanantory analysis I would recommend using the results from the Logistic 
+Regression model. 

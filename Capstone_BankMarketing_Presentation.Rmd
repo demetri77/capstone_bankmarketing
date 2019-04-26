@@ -22,22 +22,22 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introduction
 
-A Portuguese bank uses telemarketing campaigns to engage their customers. Each 
-customer engagement has been recorded for evaluation. Such data can be used to 
-extract insights for making better campaign decisions.
+A Portuguese bank uses telemarketing campaigns to engage their customers. 
 
-Marketing campaigns generally do not discriminate how customers are targeted.
-Therefore, some campaigns are irrelevant to some customers and unneccessary  
-resources may be spent on customers that lead to rejection. 
+Each customer engagement has been recorded for evaluation. 
+
+Such data can be used to extract insights for making better campaign decisions.
 
 
 ## Motivation
 
-The Bank has asked me to work on this classification problem, which has 2 
-goals:
+The Bank essentially has a binary classification problem, whether a customer 
+suscribes or not. 
 
-* Predict whether a customer will subscribe to a term deposit.
-* Predict the probability of a successful subscriptions.
+Marketing campaigns generally do not discriminate how customers are targeted. 
+
+Therefore, some campaigns are irrelevant to some customers and needless 
+resources may be spent on rejections. 
 
 
 ## Data
@@ -104,7 +104,8 @@ The data was partitioned into a training, validation, and test set.
 
 ## Predictive Modeling
 
-The following two Machine Learning models were used to predict subscriptions:
+Since this is a binary classification problem, the following two Machine 
+Learning models were used to predict subscriptions:
 
 * Logistic Regression
 
