@@ -32,7 +32,7 @@ Such data can be used to extract insights for making better campaign decisions.
 ## Motivation
 
 The Bank essentially has a binary classification problem: predicting whether a 
-customer subscribes or not. 
+customer subscribes to a term deposit or not. 
 
 Marketing campaigns generally do not discriminate how customers are targeted. 
 
@@ -66,7 +66,7 @@ ggplot(bankfull, aes(x = subscribed, fill = subscribed)) + geom_bar() +
 
 ## Exploratory Data Analysis
 
-Looking at subscriptions from a previous campaign tells us more than half the 
+Looking at term deposit subscriptions from a previous campaign tells us more than half the 
 subscribers will re-subscribe.
 
 ```{r prev_outcome}
@@ -80,8 +80,8 @@ ggplot(bankfull_prev, aes(x=prev_outcome, fill=subscribed)) +
 
 ## Exploratory Data Analysis
 
-It was noted contacting customers via cellular phone yields at least 2 times 
-more success than contacting a customer through their landline telephone.
+Contacting a customer's cellular phone yields at least 2 times more success 
+than contacting a customer's landline telephone.
 
 ```{r contact_typ}
 ggplot(bankfull, aes(x=contact_typ, fill=subscribed)) + 
