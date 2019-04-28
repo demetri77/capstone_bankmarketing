@@ -405,7 +405,7 @@ validation &lt;- training_validation[-trainIndex,]
 
 testData  &lt;- bankfull_clean[-Training_Validation_Index,]
 
-control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRUE, verboseIter = FALSE)</code></pre>
+control &lt;- trainControl(method = &quot;cv&quot;, number = 10, classProbs = TRUE, verboseIter = FALSE)</code></pre>
 </div>
 <div id="predictive-modeling-options" class="section level2">
 <h2>Predictive Modeling Options</h2>
@@ -556,30 +556,30 @@ note of the Kappa value.</p>
 ## 
 ##           Reference
 ## Prediction   no  yes
-##        no  7071  657
-##        yes  238  271
-##                                          
-##                Accuracy : 0.8913         
-##                  95% CI : (0.8844, 0.898)
-##     No Information Rate : 0.8873         
-##     P-Value [Acc &gt; NIR] : 0.1284         
-##                                          
-##                   Kappa : 0.3232         
-##  Mcnemar&#39;s Test P-Value : &lt;2e-16         
-##                                          
-##             Sensitivity : 0.29203        
-##             Specificity : 0.96744        
-##          Pos Pred Value : 0.53242        
-##          Neg Pred Value : 0.91498        
-##               Precision : 0.53242        
-##                  Recall : 0.29203        
-##                      F1 : 0.37717        
-##              Prevalence : 0.11266        
-##          Detection Rate : 0.03290        
-##    Detection Prevalence : 0.06179        
-##       Balanced Accuracy : 0.62973        
-##                                          
-##        &#39;Positive&#39; Class : yes            
+##        no  7073  651
+##        yes  236  277
+##                                           
+##                Accuracy : 0.8923          
+##                  95% CI : (0.8854, 0.8989)
+##     No Information Rate : 0.8873          
+##     P-Value [Acc &gt; NIR] : 0.0784          
+##                                           
+##                   Kappa : 0.3308          
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.29849         
+##             Specificity : 0.96771         
+##          Pos Pred Value : 0.53996         
+##          Neg Pred Value : 0.91572         
+##               Precision : 0.53996         
+##                  Recall : 0.29849         
+##                      F1 : 0.38446         
+##              Prevalence : 0.11266         
+##          Detection Rate : 0.03363         
+##    Detection Prevalence : 0.06228         
+##       Balanced Accuracy : 0.63310         
+##                                           
+##        &#39;Positive&#39; Class : yes             
 ## </code></pre>
 <p><strong>Performance of Random Forest</strong></p>
 <p>Kappa = 0.3308</p>
@@ -590,28 +590,28 @@ caret::confusionMatrix(predict_testData, testData$subscribed, mode=&quot;everyth
 ## 
 ##           Reference
 ## Prediction   no  yes
-##        no  7076  658
-##        yes  233  270
+##        no  7080  663
+##        yes  229  265
 ##                                           
-##                Accuracy : 0.8918          
-##                  95% CI : (0.8849, 0.8985)
+##                Accuracy : 0.8917          
+##                  95% CI : (0.8848, 0.8983)
 ##     No Information Rate : 0.8873          
-##     P-Value [Acc &gt; NIR] : 0.1012          
+##     P-Value [Acc &gt; NIR] : 0.1076          
 ##                                           
-##                   Kappa : 0.3238          
+##                   Kappa : 0.3194          
 ##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
 ##                                           
-##             Sensitivity : 0.29095         
-##             Specificity : 0.96812         
-##          Pos Pred Value : 0.53678         
-##          Neg Pred Value : 0.91492         
-##               Precision : 0.53678         
-##                  Recall : 0.29095         
-##                      F1 : 0.37736         
+##             Sensitivity : 0.28556         
+##             Specificity : 0.96867         
+##          Pos Pred Value : 0.53644         
+##          Neg Pred Value : 0.91437         
+##               Precision : 0.53644         
+##                  Recall : 0.28556         
+##                      F1 : 0.37271         
 ##              Prevalence : 0.11266         
-##          Detection Rate : 0.03278         
-##    Detection Prevalence : 0.06107         
-##       Balanced Accuracy : 0.62953         
+##          Detection Rate : 0.03217         
+##    Detection Prevalence : 0.05997         
+##       Balanced Accuracy : 0.62711         
 ##                                           
 ##        &#39;Positive&#39; Class : yes             
 ## </code></pre>

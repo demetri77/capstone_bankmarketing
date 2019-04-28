@@ -57,7 +57,7 @@ validation <- training_validation[-trainIndex,]
 
 testData  <- bankfull_clean[-Training_Validation_Index,]
 
-control <- trainControl(method = "cv", number = 2, classProbs = TRUE, verboseIter = FALSE)
+control <- trainControl(method = "cv", number = 10, classProbs = TRUE, verboseIter = FALSE)
 ```
 
 
@@ -167,6 +167,8 @@ and 24% acceptance.
 While not impressive, having a 54% probability rate for subscriptions is 
 better than the baseline of 11-24%.
 
+
+## Conclusion
 
 **Recommendation**
 
