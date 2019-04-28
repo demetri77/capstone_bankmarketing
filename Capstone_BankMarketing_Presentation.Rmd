@@ -39,6 +39,8 @@ Marketing campaigns generally do not discriminate how customers are targeted.
 Therefore, some campaigns are irrelevant to some customers and valuable 
 resources may be spent on needless rejections. 
 
+The Bank can mitigate this waste by predicting which factors lead to a 
+successful subscription and focusing on better marketing. 
 
 ## Data
 

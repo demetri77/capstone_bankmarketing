@@ -75,7 +75,7 @@ model types:
 
 ## Logistic Regression with caret package
 
-Develop a model with the training data. 
+Develop a logistic regression model with the training data. 
 
 ```{r logReg, warning=FALSE}
 # develop a model
@@ -85,23 +85,23 @@ glm_model <- train(subscribed ~ . - duration_sec, data=training, method="glm", n
 ```
 
 
-What can we conclude from the logistic regression model? 
+What can we observe from the logistic regression model? 
 
 ```{r}
 summary(glm_model) # results with entire variable set less the duration of last call
 ```
 
 
-Let's apply our model to the validation set.
+Let's apply our logistic regression model to the validation set.
 
 ```{r}
 glm_predict <- predict(glm_model, newdata=validation)
 ```
 
 
-Review the confusion matrix for the logistic regression model. Take note 
-because this data set is highly skewed, the accuracy value becomes 
-impractical. As such, the Kappa value will be noted. 
+While reviewing the confusion matrix for the logistic regression model, I will 
+use the Kappa value for evaluation. This is because this data set is 
+asymmetrical severely imbalanced so the accuracy value is impractical.
 
 ```{r}
 caret::confusionMatrix(glm_predict, validation$subscribed, mode="everything", positive="yes") 

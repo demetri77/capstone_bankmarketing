@@ -423,7 +423,7 @@ control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRU
 </div>
 <div id="logistic-regression-with-caret-package" class="section level2">
 <h2>Logistic Regression with caret package</h2>
-<p>Develop a model with the training data. Nota bene: because the data set is skewed, Kappa checks the</p>
+<p>Develop a logistic regression model with the training data.</p>
 <pre class="r"><code># develop a model
 set.seed(7)
 glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot;glm&quot;, na.action=na.omit, 
@@ -434,7 +434,7 @@ glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot
 ## - Fold2: parameter=none 
 ## Aggregating results
 ## Fitting final model on full training set</code></pre>
-<p>What can we conclude from the logistic regression model?</p>
+<p>What can we observe from the logistic regression model?</p>
 <pre class="r"><code>summary(glm_model) # results with entire variable set less the duration of last call</code></pre>
 <pre><code>## 
 ## Call:
@@ -509,11 +509,11 @@ glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot
 ## AIC: 13733
 ## 
 ## Number of Fisher Scoring iterations: 10</code></pre>
-<p>Let’s apply our model to the validation set.</p>
+<p>Let’s apply our logistic regression model to the validation set.</p>
 <pre class="r"><code>glm_predict &lt;- predict(glm_model, newdata=validation)</code></pre>
 <pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
 ## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
-<p>Here is a confusion matrix, with the results expressing accuracy, sensitivity, and specificity. Because this data set is highly skewed, the accuracy value becomes impractical.</p>
+<p>While reviewing the confusion matrix for the logistic regression model, I will use the Kappa value for evaluation. This is because this data set is asymmetrical severely imbalanced so the accuracy value is impractical.</p>
 <pre class="r"><code>caret::confusionMatrix(glm_predict, validation$subscribed, mode=&quot;everything&quot;, positive=&quot;yes&quot;) </code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
@@ -570,7 +570,8 @@ rf_model &lt;- caret::train(subscribed~.-duration_sec, data=training, method=&qu
 ## Fitting mtry = 27 on full training set</code></pre>
 <p>Apply the Random Forest model to the Validation set.</p>
 <pre class="r"><code>rf_prediction &lt;- predict(rf_model, newdata=validation)</code></pre>
-<p>Review the Confusion Matrix for the Random Forest model. Again we will take note of the Kappa value due to the skewed data set.</p>
+<p>Review the Confusion Matrix for the Random Forest model, particularly taking<br />
+note of the Kappa value.</p>
 <pre class="r"><code>caret::confusionMatrix(rf_prediction, validation$subscribed, mode=&quot;everything&quot;, positive=&quot;yes&quot;)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
