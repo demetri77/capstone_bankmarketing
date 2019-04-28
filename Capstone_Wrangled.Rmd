@@ -348,7 +348,11 @@ for customers that were contacted.
 
 ```{r}
 daysPassedMOD <- filter(bankfull, days_passed!=999)
-ggplot(daysPassedMOD, aes(x=subscribed, y=days_passed, fill=subscribed)) + geom_boxplot()
+ggplot(daysPassedMOD, aes(x=subscribed, y=days_passed, fill=subscribed)) + 
+  geom_boxplot()
+
+ggplot(daysPassedMOD, aes(x=subscribed, y=days_passed, fill=subscribed)) + 
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
 
 ```
 
@@ -368,6 +372,7 @@ __Chart of values from `emp_var_rate` to `num_employed`__
 ggpairs(bankfull, columns=16:20, progress=FALSE)
 
 ```
+
 
 **What if I filter out the subscriptions?**
 

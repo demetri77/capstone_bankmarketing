@@ -22,7 +22,7 @@ towards clients with a high chance of agreeing to registering for extra
 banking services. 
 
 The [data set](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) can be 
-found at an archive for Marchine Learning.
+found at UC Irvine's archive for Machine Learning.
 
 ```{r}
 bankfull_clean <- read_csv("bankfull_clean.csv", col_types = "ifffffffffiiiifdddddf")
@@ -57,7 +57,7 @@ validation <- training_validation[-trainIndex,]
 
 testData  <- bankfull_clean[-TrainingValidationIndex,]
 
-control <- trainControl(method = "cv", number = 10, classProbs = TRUE, verboseIter = TRUE)
+control <- trainControl(method = "cv", number = 2, classProbs = TRUE, verboseIter = TRUE)
 ```
 
 
@@ -67,15 +67,15 @@ Because this problem deals with binary classification, I will be using these 2
 model types:
 
 * Logistic Regression
-    * regression model where the dependent variable is categorical 
+    * regression model used to predict a binary dependent variable 
+    
 * Random Forest
-    * a random forest of decision trees
+    * an ensemble of decision trees analyzed for the best prediction 
     
 
 ## Logistic Regression with caret package
 
 Develop a model with the training data. 
-Nota bene: because the data set is skewed, Kappa is 
 
 ```{r logReg, warning=FALSE}
 # develop a model
@@ -95,16 +95,16 @@ summary(glm_model) # results with entire variable set less the duration of last 
 Let's apply our model to the validation set.
 
 ```{r}
-glm_predict_full <- predict(glm_model, newdata=validation)
+glm_predict <- predict(glm_model, newdata=validation)
 ```
 
 
-Here is a confusion matrix, with the results expressing accuracy, sensitivity, 
-and specificity. The metric parameter Kappa will be used because it's better 
-than F1 for uneven results.
+Review the confusion matrix for the logistic regression model. Take note 
+because this data set is highly skewed, the accuracy value becomes 
+impractical. As such, the Kappa value will be noted. 
 
 ```{r}
-caret::confusionMatrix(glm_predict_full, validation$subscribed, mode="everything", positive="yes") 
+caret::confusionMatrix(glm_predict, validation$subscribed, mode="everything", positive="yes") 
 ```
 
 **Comparing results of Logistic Regression model:**
@@ -114,9 +114,9 @@ Kappa = 0.2976
 
 ## Random Forest with caret package
 
-Develop a model with training data.
+Develop a model with training data .
 
-```{r rdmForest}
+```{r rdmForest, warning=FALSE}
 set.seed(7)
 rf_model <- caret::train(subscribed~.-duration_sec, data=training, method="rf", metric="Kappa", 
                          trControl=control)
@@ -130,7 +130,8 @@ rf_prediction <- predict(rf_model, newdata=validation)
 ```
 
 
-Review the Confusion Matrix for the Random Forest model.
+Review the Confusion Matrix for the Random Forest model, particularly taking  
+note of the Kappa value.
 
 ```{r}
 caret::confusionMatrix(rf_prediction, validation$subscribed, mode="everything", positive="yes")

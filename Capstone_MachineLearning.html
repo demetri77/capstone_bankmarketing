@@ -380,7 +380,7 @@ $(document).ready(function () {
 <div id="trying-to-predict-the-success-of-bank-telemarketing" class="section level2">
 <h2>Trying to predict the success of bank telemarketing</h2>
 <p>I’m working on predicting the success of telemarketing calls for a bank that’s selling long-term deposits. A Portuguese retail bank was addressed, with data collected from 2008 to 2013, thus including the effects of the recent financial crisis of 2008. With 21 features available for analysis, I hope to derive knowledge for a model that would confirm how to better focus resources towards clients with a high chance of agreeing to registering for extra banking services.</p>
-<p>The compressed [data set] (<a href="https://archive.ics.uci.edu/ml/machine-learning-databases/00222/" class="uri">https://archive.ics.uci.edu/ml/machine-learning-databases/00222/</a>) can be found at an archive for Marchine Learning.</p>
+<p>The <a href="https://archive.ics.uci.edu/ml/datasets/Bank+Marketing">data set</a> can be found at UC Irvine’s archive for Machine Learning.</p>
 <pre class="r"><code>bankfull_clean &lt;- read_csv(&quot;bankfull_clean.csv&quot;, col_types = &quot;ifffffffffiiiifdddddf&quot;)</code></pre>
 <p>I will be treating this as a supervised classification problem. While predicting whether a customer will subscribe to a new service, I need to find the main predictors while developing a model that best expressses a client’s decision for subscribing.</p>
 </div>
@@ -405,35 +405,33 @@ validation &lt;- training_validation[-trainIndex,]
 
 testData  &lt;- bankfull_clean[-TrainingValidationIndex,]
 
-control &lt;- trainControl(method = &quot;cv&quot;, number = 10, classProbs = TRUE, verboseIter = TRUE)</code></pre>
+control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRUE, verboseIter = TRUE)</code></pre>
+</div>
+<div id="predictive-modeling-options" class="section level2">
+<h2>Predictive Modeling Options</h2>
+<p>Because this problem deals with binary classification, I will be using these 2 model types:</p>
+<ul>
+<li>Logistic Regression
+<ul>
+<li>regression model used to predict a binary dependent variable</li>
+</ul></li>
+<li>Random Forest
+<ul>
+<li>an ensemble of decision trees analyzed for the best prediction</li>
+</ul></li>
+</ul>
 </div>
 <div id="logistic-regression-with-caret-package" class="section level2">
 <h2>Logistic Regression with caret package</h2>
-<p>Develop a model with the training data.</p>
+<p>Develop a model with the training data. Nota bene: because the data set is skewed, Kappa checks the</p>
 <pre class="r"><code># develop a model
 set.seed(7)
 glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot;glm&quot;, na.action=na.omit, 
                    metric=&quot;Kappa&quot;, trControl=control)</code></pre>
-<pre><code>## + Fold01: parameter=none 
-## - Fold01: parameter=none 
-## + Fold02: parameter=none 
-## - Fold02: parameter=none 
-## + Fold03: parameter=none 
-## - Fold03: parameter=none 
-## + Fold04: parameter=none 
-## - Fold04: parameter=none 
-## + Fold05: parameter=none 
-## - Fold05: parameter=none 
-## + Fold06: parameter=none 
-## - Fold06: parameter=none 
-## + Fold07: parameter=none 
-## - Fold07: parameter=none 
-## + Fold08: parameter=none 
-## - Fold08: parameter=none 
-## + Fold09: parameter=none 
-## - Fold09: parameter=none 
-## + Fold10: parameter=none 
-## - Fold10: parameter=none 
+<pre><code>## + Fold1: parameter=none 
+## - Fold1: parameter=none 
+## + Fold2: parameter=none 
+## - Fold2: parameter=none 
 ## Aggregating results
 ## Fitting final model on full training set</code></pre>
 <p>What can we conclude from the logistic regression model?</p>
@@ -512,11 +510,11 @@ glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot
 ## 
 ## Number of Fisher Scoring iterations: 10</code></pre>
 <p>Let’s apply our model to the validation set.</p>
-<pre class="r"><code>glm_predict_full &lt;- predict(glm_model, newdata=validation)</code></pre>
+<pre class="r"><code>glm_predict &lt;- predict(glm_model, newdata=validation)</code></pre>
 <pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
 ## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
-<p>Here is a confusion matrix, with the results expressing accuracy, sensitivity, and specificity. The metric parameter Kappa will be used because it’s better than F1 for uneven results.</p>
-<pre class="r"><code>caret::confusionMatrix(glm_predict_full, validation$subscribed, mode=&quot;everything&quot;, positive=&quot;yes&quot;) </code></pre>
+<p>Here is a confusion matrix, with the results expressing accuracy, sensitivity, and specificity. Because this data set is highly skewed, the accuracy value becomes impractical.</p>
+<pre class="r"><code>caret::confusionMatrix(glm_predict, validation$subscribed, mode=&quot;everything&quot;, positive=&quot;yes&quot;) </code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -551,105 +549,57 @@ glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot
 </div>
 <div id="random-forest-with-caret-package" class="section level2">
 <h2>Random Forest with caret package</h2>
-<p>Develop a model with training data.</p>
+<p>Develop a model with training data .</p>
 <pre class="r"><code>set.seed(7)
 rf_model &lt;- caret::train(subscribed~.-duration_sec, data=training, method=&quot;rf&quot;, metric=&quot;Kappa&quot;, 
                          trControl=control)</code></pre>
-<pre><code>## + Fold01: mtry= 2 
-## - Fold01: mtry= 2 
-## + Fold01: mtry=27 
-## - Fold01: mtry=27 
-## + Fold01: mtry=52 
-## - Fold01: mtry=52 
-## + Fold02: mtry= 2 
-## - Fold02: mtry= 2 
-## + Fold02: mtry=27 
-## - Fold02: mtry=27 
-## + Fold02: mtry=52 
-## - Fold02: mtry=52 
-## + Fold03: mtry= 2 
-## - Fold03: mtry= 2 
-## + Fold03: mtry=27 
-## - Fold03: mtry=27 
-## + Fold03: mtry=52 
-## - Fold03: mtry=52 
-## + Fold04: mtry= 2 
-## - Fold04: mtry= 2 
-## + Fold04: mtry=27 
-## - Fold04: mtry=27 
-## + Fold04: mtry=52 
-## - Fold04: mtry=52 
-## + Fold05: mtry= 2 
-## - Fold05: mtry= 2 
-## + Fold05: mtry=27 
-## - Fold05: mtry=27 
-## + Fold05: mtry=52 
-## - Fold05: mtry=52 
-## + Fold06: mtry= 2 
-## - Fold06: mtry= 2 
-## + Fold06: mtry=27 
-## - Fold06: mtry=27 
-## + Fold06: mtry=52 
-## - Fold06: mtry=52 
-## + Fold07: mtry= 2 
-## - Fold07: mtry= 2 
-## + Fold07: mtry=27 
-## - Fold07: mtry=27 
-## + Fold07: mtry=52 
-## - Fold07: mtry=52 
-## + Fold08: mtry= 2 
-## - Fold08: mtry= 2 
-## + Fold08: mtry=27 
-## - Fold08: mtry=27 
-## + Fold08: mtry=52 
-## - Fold08: mtry=52 
-## + Fold09: mtry= 2 
-## - Fold09: mtry= 2 
-## + Fold09: mtry=27 
-## - Fold09: mtry=27 
-## + Fold09: mtry=52 
-## - Fold09: mtry=52 
-## + Fold10: mtry= 2 
-## - Fold10: mtry= 2 
-## + Fold10: mtry=27 
-## - Fold10: mtry=27 
-## + Fold10: mtry=52 
-## - Fold10: mtry=52 
+<pre><code>## + Fold1: mtry= 2 
+## - Fold1: mtry= 2 
+## + Fold1: mtry=27 
+## - Fold1: mtry=27 
+## + Fold1: mtry=52 
+## - Fold1: mtry=52 
+## + Fold2: mtry= 2 
+## - Fold2: mtry= 2 
+## + Fold2: mtry=27 
+## - Fold2: mtry=27 
+## + Fold2: mtry=52 
+## - Fold2: mtry=52 
 ## Aggregating results
 ## Selecting tuning parameters
 ## Fitting mtry = 27 on full training set</code></pre>
 <p>Apply the Random Forest model to the Validation set.</p>
 <pre class="r"><code>rf_prediction &lt;- predict(rf_model, newdata=validation)</code></pre>
-<p>Review the Confusion Matrix for the Random Forest model.</p>
+<p>Review the Confusion Matrix for the Random Forest model. Again we will take note of the Kappa value due to the skewed data set.</p>
 <pre class="r"><code>caret::confusionMatrix(rf_prediction, validation$subscribed, mode=&quot;everything&quot;, positive=&quot;yes&quot;)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction   no  yes
-##        no  7073  651
-##        yes  236  277
-##                                           
-##                Accuracy : 0.8923          
-##                  95% CI : (0.8854, 0.8989)
-##     No Information Rate : 0.8873          
-##     P-Value [Acc &gt; NIR] : 0.0784          
-##                                           
-##                   Kappa : 0.3308          
-##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
-##                                           
-##             Sensitivity : 0.29849         
-##             Specificity : 0.96771         
-##          Pos Pred Value : 0.53996         
-##          Neg Pred Value : 0.91572         
-##               Precision : 0.53996         
-##                  Recall : 0.29849         
-##                      F1 : 0.38446         
-##              Prevalence : 0.11266         
-##          Detection Rate : 0.03363         
-##    Detection Prevalence : 0.06228         
-##       Balanced Accuracy : 0.63310         
-##                                           
-##        &#39;Positive&#39; Class : yes             
+##        no  7071  657
+##        yes  238  271
+##                                          
+##                Accuracy : 0.8913         
+##                  95% CI : (0.8844, 0.898)
+##     No Information Rate : 0.8873         
+##     P-Value [Acc &gt; NIR] : 0.1284         
+##                                          
+##                   Kappa : 0.3232         
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16         
+##                                          
+##             Sensitivity : 0.29203        
+##             Specificity : 0.96744        
+##          Pos Pred Value : 0.53242        
+##          Neg Pred Value : 0.91498        
+##               Precision : 0.53242        
+##                  Recall : 0.29203        
+##                      F1 : 0.37717        
+##              Prevalence : 0.11266        
+##          Detection Rate : 0.03290        
+##    Detection Prevalence : 0.06179        
+##       Balanced Accuracy : 0.62973        
+##                                          
+##        &#39;Positive&#39; Class : yes            
 ## </code></pre>
 <p><strong>Performance of Random Forest</strong></p>
 <p>Kappa = 0.3308</p>
@@ -660,28 +610,28 @@ caret::confusionMatrix(predict_testData, testData$subscribed, mode=&quot;everyth
 ## 
 ##           Reference
 ## Prediction   no  yes
-##        no  7080  663
-##        yes  229  265
+##        no  7076  658
+##        yes  233  270
 ##                                           
-##                Accuracy : 0.8917          
-##                  95% CI : (0.8848, 0.8983)
+##                Accuracy : 0.8918          
+##                  95% CI : (0.8849, 0.8985)
 ##     No Information Rate : 0.8873          
-##     P-Value [Acc &gt; NIR] : 0.1076          
+##     P-Value [Acc &gt; NIR] : 0.1012          
 ##                                           
-##                   Kappa : 0.3194          
+##                   Kappa : 0.3238          
 ##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
 ##                                           
-##             Sensitivity : 0.28556         
-##             Specificity : 0.96867         
-##          Pos Pred Value : 0.53644         
-##          Neg Pred Value : 0.91437         
-##               Precision : 0.53644         
-##                  Recall : 0.28556         
-##                      F1 : 0.37271         
+##             Sensitivity : 0.29095         
+##             Specificity : 0.96812         
+##          Pos Pred Value : 0.53678         
+##          Neg Pred Value : 0.91492         
+##               Precision : 0.53678         
+##                  Recall : 0.29095         
+##                      F1 : 0.37736         
 ##              Prevalence : 0.11266         
-##          Detection Rate : 0.03217         
-##    Detection Prevalence : 0.05997         
-##       Balanced Accuracy : 0.62711         
+##          Detection Rate : 0.03278         
+##    Detection Prevalence : 0.06107         
+##       Balanced Accuracy : 0.62953         
 ##                                           
 ##        &#39;Positive&#39; Class : yes             
 ## </code></pre>
@@ -690,6 +640,8 @@ caret::confusionMatrix(predict_testData, testData$subscribed, mode=&quot;everyth
 <p>The Kappa score is lower with the test data than the training or validation set. With the test data, the positive predictive value claims this model will be correct 54% of the time and incorrect 46% of the time.</p>
 <p>From exploratory data analysis, the rejection rate for subscriptions was 89%, meaning only 11% subscribe. The previous campaign had a rejection rate of 76% and 24% acceptance.</p>
 <p>While not impressive, having a 54% probability rate for subscriptions is better than the baseline of 11-24%.</p>
+<p><strong>Recommendation</strong></p>
+<p>The Random Forest model is a better predictor for this bank marketing dataset. However, there aren’t any tangible results that can be applied. For better explanantory analysis I would recommend using the results from the Logistic Regression model.</p>
 </div>
 
 

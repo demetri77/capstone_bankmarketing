@@ -31,13 +31,13 @@ Such data can be used to extract insights for making better campaign decisions.
 
 ## Motivation
 
-The Bank essentially has a binary classification problem, whether a customer 
-suscribes or not. 
+The Bank essentially has a binary classification problem: predicting whether a 
+customer subscribes or not. 
 
 Marketing campaigns generally do not discriminate how customers are targeted. 
 
-Therefore, some campaigns are irrelevant to some customers and needless 
-resources may be spent on rejections. 
+Therefore, some campaigns are irrelevant to some customers and valuable 
+resources may be spent on needless rejections. 
 
 
 ## Data
@@ -66,8 +66,8 @@ ggplot(bankfull, aes(x = subscribed, fill = subscribed)) + geom_bar() +
 
 ## Exploratory Data Analysis
 
-But looking at subscriptions from a previous campaign tells us more than 
-half the subscribers will re-subscribe.
+Looking at subscriptions from a previous campaign tells us more than half the 
+subscribers will re-subscribe.
 
 ```{r prev_outcome}
 bankfull_prev <- filter(bankfull, prev_outcome != "nonexistent")
@@ -78,15 +78,15 @@ ggplot(bankfull_prev, aes(x=prev_outcome, fill=subscribed)) +
 ```
 
 
-## Contact Type
+## Exploratory Data Analysis
 
-It was also observed contacting clients via cellular phone yields at least 2 
-times more success than contacting a client through their landline telephone.
+It was noted contacting customers via cellular phone yields at least 2 times 
+more success than contacting a customer through their landline telephone.
 
 ```{r contact_typ}
 ggplot(bankfull, aes(x=contact_typ, fill=subscribed)) + 
   geom_bar(position="fill") + 
-  xlab("method of contact") + 
+  xlab("contact type") + 
   ylab("ratio")
 ```
 
@@ -95,12 +95,14 @@ ggplot(bankfull, aes(x=contact_typ, fill=subscribed)) +
 
 The data was partitioned into a training, validation, and test set.
 
-1. Two predictive models were created from client responses in the training set.
+1. Two predictive models were created from customer responses in the training 
+  set.
 
-2. The same two models were used to predict client responses in the validation set.
+2. The same two models were used to predict customer responses in the validation set.
 
 3. Finally the optimal model from the prior step was used with the test set to 
   estimate future results. 
+
 
 ## Predictive Modeling
 
@@ -108,34 +110,35 @@ Since this is a binary classification problem, the following two Machine
 Learning models were used to predict subscriptions:
 
 * Logistic Regression
-
+    * regression model used to predict a binary dependent variable 
+    
 * Random Forest
-
-It was noted the data set is extremely imbalanced as there is overwhelming 
-amount of clients that do not subscribe. Hence the statistical Kappa value is 
-more helpful than using accuracy to determine which model will give us the 
-best results.
+    * an ensemble of decision trees analyzed for the best prediction 
 
 
 ## Evaluating Model Performance
 
-The Kappa value for the Random Forest model is higher than the Logistic 
-Regression model so the former will be the model of choice for the test data.
+The data set is extremely skewed because an overwhelming majority of customers 
+do not subscribe. The high volume of rejections means the accuracy for 
+predicting a non-subscription or true negative is pretty high. 
 
-Since there is a high volume of rejection, the accuracy of a prediction for 
-rejection is overwhelmingly high. Yet we are interested in successful 
-subscriptions, which are true positive results.
+We are interested in successful subscriptions, the true positives. Since the 
+accuracy value is impractical we will rely on the Kappa value instead.
+
+As a result, the Kappa value for the Random Forest model is higher than the 
+Logistic Regression model so the former will be the model of choice for the 
+test data. 
 
 
 ## Recommendations
 
 1. Reach out to subscribers from previous campaign as more than 50% of 
-  subscribers will re-subscribe.
+  subscribers will re-subscribe. 
 
-2. Contact clients via their cellular phone as they are more than twice as 
-  likely to subscribe compared to clients contacted via a regular telephone.
+2. Contact customers via their cellular phone as they are more than twice as 
+  likely to subscribe compared to customers contacted via a regular telephone. 
 
 3. The Random Forest model is a better predictor for this bank marketing 
   dataset. However, there aren't any tangible results that can be applied. 
-  For better explanantory analysis I would recommend using the results from the Logistic 
-  Regression model.
+  For better explanantory analysis I recommend using the results from the 
+  Logistic Regression model. 
