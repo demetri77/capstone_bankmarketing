@@ -46,8 +46,8 @@ test set.
 ```{r partition}
 set.seed(13456)
 
-TrainingValidationIndex <- createDataPartition(y=bankfull_clean$subscribed, p=0.80, list=FALSE)
-training_validation <- bankfull_clean[TrainingValidationIndex,]
+Training_Validation_Index <- createDataPartition(y=bankfull_clean$subscribed, p=0.80, list=FALSE)
+training_validation <- bankfull_clean[Training_Validation_Index,]
 
 set.seed(13456)
 
@@ -55,9 +55,9 @@ trainIndex <- createDataPartition(training_validation$subscribed, p=0.75, list=F
 training <- training_validation[trainIndex,]
 validation <- training_validation[-trainIndex,]
 
-testData  <- bankfull_clean[-TrainingValidationIndex,]
+testData  <- bankfull_clean[-Training_Validation_Index,]
 
-control <- trainControl(method = "cv", number = 2, classProbs = TRUE, verboseIter = TRUE)
+control <- trainControl(method = "cv", number = 2, classProbs = TRUE, verboseIter = FALSE)
 ```
 
 

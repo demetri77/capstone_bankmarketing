@@ -394,8 +394,8 @@ $(document).ready(function () {
 </ol>
 <pre class="r"><code>set.seed(13456)
 
-TrainingValidationIndex &lt;- createDataPartition(y=bankfull_clean$subscribed, p=0.80, list=FALSE)
-training_validation &lt;- bankfull_clean[TrainingValidationIndex,]
+Training_Validation_Index &lt;- createDataPartition(y=bankfull_clean$subscribed, p=0.80, list=FALSE)
+training_validation &lt;- bankfull_clean[Training_Validation_Index,]
 
 set.seed(13456)
 
@@ -403,9 +403,9 @@ trainIndex &lt;- createDataPartition(training_validation$subscribed, p=0.75, lis
 training &lt;- training_validation[trainIndex,]
 validation &lt;- training_validation[-trainIndex,]
 
-testData  &lt;- bankfull_clean[-TrainingValidationIndex,]
+testData  &lt;- bankfull_clean[-Training_Validation_Index,]
 
-control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRUE, verboseIter = TRUE)</code></pre>
+control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRUE, verboseIter = FALSE)</code></pre>
 </div>
 <div id="predictive-modeling-options" class="section level2">
 <h2>Predictive Modeling Options</h2>
@@ -428,12 +428,6 @@ control &lt;- trainControl(method = &quot;cv&quot;, number = 2, classProbs = TRU
 set.seed(7)
 glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot;glm&quot;, na.action=na.omit, 
                    metric=&quot;Kappa&quot;, trControl=control)</code></pre>
-<pre><code>## + Fold1: parameter=none 
-## - Fold1: parameter=none 
-## + Fold2: parameter=none 
-## - Fold2: parameter=none 
-## Aggregating results
-## Fitting final model on full training set</code></pre>
 <p>What can we observe from the logistic regression model?</p>
 <pre class="r"><code>summary(glm_model) # results with entire variable set less the duration of last call</code></pre>
 <pre><code>## 
@@ -553,21 +547,6 @@ glm_model &lt;- train(subscribed ~ . - duration_sec, data=training, method=&quot
 <pre class="r"><code>set.seed(7)
 rf_model &lt;- caret::train(subscribed~.-duration_sec, data=training, method=&quot;rf&quot;, metric=&quot;Kappa&quot;, 
                          trControl=control)</code></pre>
-<pre><code>## + Fold1: mtry= 2 
-## - Fold1: mtry= 2 
-## + Fold1: mtry=27 
-## - Fold1: mtry=27 
-## + Fold1: mtry=52 
-## - Fold1: mtry=52 
-## + Fold2: mtry= 2 
-## - Fold2: mtry= 2 
-## + Fold2: mtry=27 
-## - Fold2: mtry=27 
-## + Fold2: mtry=52 
-## - Fold2: mtry=52 
-## Aggregating results
-## Selecting tuning parameters
-## Fitting mtry = 27 on full training set</code></pre>
 <p>Apply the Random Forest model to the Validation set.</p>
 <pre class="r"><code>rf_prediction &lt;- predict(rf_model, newdata=validation)</code></pre>
 <p>Review the Confusion Matrix for the Random Forest model, particularly taking<br />
